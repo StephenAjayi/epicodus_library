@@ -1,0 +1,29 @@
+<h1 class="page-header text-center">Welcome to the Library!</h1>
+
+
+<p> Current Authors that we have listed :</p>
+
+<% if @authors.any?() %>
+  <ul>
+    <% @authors.each() do |author| %>
+    <li><a href="/authors/<%= author.id %>"><%= actor.name %></a></li>
+    <% end %>
+
+  </ul>
+
+<% else %>
+  <h5>There are no authors added please <a href="/authors"> Add an author </a></h5>
+<% end %>
+
+<p> Current books that we have listed:</p>
+
+<% if @books.any?() %>
+  <ul>
+    <% @books.each() do |movie| %>
+    <li><a href="/books/<%= movie.id %>"><%= movie.name() %></a></li>
+    <% end %>
+  </ul>
+
+<% else %>
+  <h5>There are no books added, please <a href ="/books"> Add a book </a></h5>
+<% end %>
