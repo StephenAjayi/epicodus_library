@@ -1,4 +1,5 @@
 require('rspec')
+require('author')
 require('book')
 require('pg')
 require('pry')
