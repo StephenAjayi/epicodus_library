@@ -26,6 +26,14 @@ class Author
     self.name().eql?(another_author.name()) && self.id().eql?(another_author.id())
   end
 
+  define_singleton_method(:find) do |id|
+    author = DB.exec("SELECT * FROM authors WHERE id = #{id};")
+    name = author.first().fetch('name')
+    Author.new(name: name, id: id)
+  end
+
+
+
 
 
 end

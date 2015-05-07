@@ -30,11 +30,22 @@ describe(Author) do
       expect(Author.all).to(eq([author]))
     end
   end
+
   describe('#==') do
     it('ascribes equal to two objects are equal to each others') do
       test_author = Author.new({:name => "Ernest Hemingway", :id => nil})
       test_author2 = Author.new({:name => "Ernest Hemingway", :id => nil})
       expect(test_author).to(eq(test_author2))
+     end
+   end
+
+   describe('.find') do
+     it('finds the book by its id ') do
+       test_author = Author.new({:name => "Ernest Hemingway", :id => nil})
+       test_author2 = Author.new({:name => "Earnest Hemingway", :id => nil})
+       test_author.save()
+       test_author2.save()
+       expect(Author.find(test_author2.id())).to(eq(test_author2))
      end
    end
 
