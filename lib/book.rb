@@ -41,6 +41,20 @@ class Book
       DB.exec("INSERT INTO authors_books (book_id, author_id) VALUES (#{self.id}, #{author_id}); ")
     end
   end
-  
+
+  define_method(:authors) do
+    authors = []
+    results = DB.exec("SELECT author_id FROM authors_books WHERE book_id = #{self.id}")
+    results.each do |result|
+      author_id = result.fetch('author_id').to_i
+      author = DB.exec("SELECT * FROM authors WHERE id = #{author_id};")
+      name = author.first().fetch('name')
+      authors.push(Author.new({:name=> name, :id => author_id}))
+      end
+    authors
+  end
+  define_method(:delete) do
+    DB.exec("DELETE FROM books WHERE id = #{self.id}")
+  end
 
 end

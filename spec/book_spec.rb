@@ -56,5 +56,28 @@ describe(Book) do
        expect(test_book.title()).to(eq("Moby Dick"))
      end
    end
+   describe('#authors') do
+     it('returns all authors associated with a book') do
+       test_author = Author.new({:name => "Ernest Hemingway", :id => nil})
+       test_author.save
+       test_author2 = Author.new(:name => "George Orwell", id: nil)
+       test_author2.save
+       test_book = Book.new(title: "Moby Dick", id: nil)
+       test_book.save
+       test_book.update(author_ids: [test_author.id(), test_author2.id()])
+       expect(test_book.authors).to(eq([test_author, test_author2]))
+     end
+   end
+   describe('#delete') do
+     it('deletes an instance of books from the database') do
+       test_book = Book.new({:title => "Beowulf", :id => nil})
+       test_book.save()
+       test_book2 = Book.new({:title => "Hamlet", :id => nil})
+       test_book2.save()
+       test_book.delete()
+       expect(Book.all()).to(eq([test_book2]))
+     end
+   end
+
 
 end

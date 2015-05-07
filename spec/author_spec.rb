@@ -49,4 +49,36 @@ describe(Author) do
      end
    end
 
+   describe('#update') do
+     it('lets you update actors in the database') do
+       test_author = Author.new({:name => "Ernest Hemingway", :id => nil})
+       test_author.save()
+       test_author.update({:name => "Brad Pitt"})
+       expect(test_author.name()).to(eq("Brad Pitt"))
+     end
+   end
+
+   describe('#books') do
+     it('returns all books associated with author') do
+       test_author = Author.new({:name => "Ernest Hemingway", :id => nil})
+       test_author.save
+       test_book = Book.new(title: "Moby Dick", id: nil)
+       test_book.save
+       test_book1 = Book.new(title: "Moby Dick", id: nil)
+       test_book1.save
+       test_author.update(book_ids: [test_book.id(), test_book1.id()])
+       expect(test_author.books).to(eq([test_book, test_book1]))
+     end
+   end
+
+   describe('#delete') do
+     it('deletes the author from the database') do
+       test_author = Author.new({:name => "Ernest Hemingway", :id => nil})
+       test_author1 = Author.new({:name => "Ernest Hemingway", :id => nil})
+       test_author1.save()
+       test_author.save()
+       test_author.delete()
+       expect(Author.all).to(eq([test_author1]))
+     end
+   end
 end
